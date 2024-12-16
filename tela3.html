@@ -18,10 +18,12 @@
             align-items: center;
             font-family: 'Italianno', cursive;
             flex-direction: column;
+            padding: 10px; /* Evita que o conteúdo encoste na borda da tela */
         }
 
         .card {
             max-width: 600px;
+            width: 100%;
             border: none;
             border-radius: 15px;
             background-color: #ffffff;
@@ -57,29 +59,46 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
-        /* Pergaminho estilizado */
+        /* Pergaminho estilizado e responsivo */
         .pergaminho {
             max-width: 600px;
+            width: 100%; /* Garante que ele se ajuste ao tamanho da tela */
             border: none;
             border-radius: 15px;
             background-color: #fff8dc; /* Cor de pergaminho */
-            padding: 20px;
+            padding: 15px;
             text-align: justify;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
             font-family: 'Poppins', sans-serif; /* Fonte mais legível */
-            font-size: 1.2rem;
-            line-height: 1.6; /* Melhor espaçamento entre linhas */
+            font-size: 1rem;
+            line-height: 1.6;
             color: #333;
             animation: fadeIn 2s ease-in-out;
             margin-top: 20px;
         }
 
         .final-frase {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: #b30000;
             font-weight: 600;
             text-align: center;
             margin-top: 20px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem; /* Reduz o tamanho do título */
+            }
+
+            .pergaminho {
+                font-size: 0.9rem; /* Reduz o tamanho da fonte no pergaminho */
+                padding: 10px; /* Menor padding para telas pequenas */
+            }
+
+            .final-frase {
+                font-size: 1rem; /* Ajusta o tamanho da frase final */
+            }
         }
     </style>
 </head>
@@ -89,14 +108,14 @@
         <h1>Após Alguns Longos Anos Juntos</h1>
         <!-- Imagem -->
         <figure>
-            <img src="assets/images/gif.gif" alt="Foto Final">
+            <img src="assets/images/foto1.jpg" alt="Foto Final">
         </figure>
     </div>
 
     <!-- Pergaminho oculto -->
     <div id="pergaminho" class="pergaminho" style="display: none;">
         <p>
-            Há quase 6 anos, embarcamos juntos em uma jornada que tem sido marcada por amor, cumplicidade e crescimento. Cada momento ao seu lado é uma lembrança que guardo com carinho. Seu sorriso ilumina meus dias e sua presença dá sentido à minha vida. 💖
+             Há quase 6 anos, embarcamos juntos em uma jornada que tem sido marcada por amor, cumplicidade e crescimento. Cada momento ao seu lado é uma lembrança que guardo com carinho. Seu sorriso ilumina meus dias e sua presença dá sentido à minha vida. 💖
         </p>
         <p>
             Nestes quase 6 anos ao seu lado, aprendi o verdadeiro significado do amor. Amor que vai além das palavras, amor que se reflete nos pequenos gestos, nos olhares e nos momentos compartilhados.  
