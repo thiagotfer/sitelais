@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onde Tudo Começou</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffcccc;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .card {
+            max-width: 600px;
+            border: none;
+            border-radius: 15px;
+            background-color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-custom {
+            background-color: #b30000;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            transition: all 0.3s ease-in-out;
+            font-weight: 400;
+        }
+
+        .btn-custom:hover {
+            background-color: #990000;
+            transform: scale(1.05);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        h2, h4 {
+            font-family: 'Italianno', cursive;
+            color: #b30000;
+            font-size: 2.5rem;
+            font-weight: 400;
+            text-transform: capitalize;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Card Inicial -->
+        <div id="start" class="card">
+            <h2 class="text-center">Antes de seguir, ligue o som! 🎵</h2>
+            <button class="btn-custom" onclick="startStory()">SEGUIR</button>
+            <audio id="background-music" loop>
+                <source src="assets/images/musica.mp3" type="audio/mp3">
+                Seu navegador não suporta áudio HTML5.
+            </audio>
+        </div>
+
+        <!-- Card Onde Tudo Começou -->
+        <div id="card-intro" class="card" style="display: none;">
+            <h2>Onde Tudo Começou!</h2>
+            <div class="img-container my-3">
+                <img src="assets/images/foto1.jpg" alt="Imagem do início">
+            </div>
+            <h4 class="mt-3">Aqui começa a nossa história! 💖</h4>
+            <button class="btn-custom mt-3" onclick="showNextCard(0)">CONTINUAR</button>
+        </div>
+
+        <!-- Área Dinâmica -->
+        <div id="dynamic-area"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        const cards = [
+            {
+                title: "O Natal Foi Separado, Mas O Ano Novo Foi Juntinhos!",
+                image: "assets/images/foto2.jpg"
+            },
+            {
+                title: "Enfim, Depois De Um Tempo, Veio Conhecer O Interior!",
+                image: "assets/images/foto3.jpg"
+            },
+            {
+                title: "Aqui Se Iniciava Nossa Vida Juntos ❤️",
+                image: "assets/images/foto4.jpg"
+            },
+            {
+                title: "Finalmente, Nosso Casamento, Um Dos Dias Mais Felizes Da Minha Vida!",
+                image: "assets/images/foto5.jpg"
+            },
+            {
+                title: "Onde Havia Desconfiança, Mas Ninguém Perguntava! Kkk",
+                image: "assets/images/foto6.jpg"
+            },
+            {
+                title: "A Primeira Fralda A Gente Nunca Esquece.",
+                image: "assets/images/foto7.jpg"
+            },
+            {
+                title: "E Finalmente, Iniciou-se O Ciclo Mais Importante Da Nossa Vida Juntos! Nosso Filho Nasceu Nesse Belo Dia.",
+                image: "assets/images/foto8.jpg"
+            }
+        ];
+
+        function startStory() {
+            document.getElementById('start').style.display = 'none';
+            document.getElementById('card-intro').style.display = 'block';
+            document.getElementById('background-music').play();
+        }
+
+        function showNextCard(index) {
+            const dynamicArea = document.getElementById("dynamic-area");
+
+            // Verifica se é o último card
+            if (index === cards.length) {
+                const finalCard = document.createElement("div");
+                finalCard.classList.add("card");
+                finalCard.innerHTML = `
+                    <h2>Fim Da Nossa Primeira Jornada ❤️</h2>
+                    <h4 class="mt-3">Vamos seguir para a próxima página?</h4>
+                    <button class="btn-custom mt-3" onclick="window.location.href='tela3.html'">SEGUIR</button>
+                `;
+                dynamicArea.appendChild(finalCard);
+                return;
+            }
+
+            // Gera os cards intermediários
+            const newCard = document.createElement("div");
+            newCard.classList.add("card");
+            newCard.innerHTML = `
+                <h2>${cards[index].title}</h2>
+                <div class="img-container my-3">
+                    <img src="${cards[index].image}" alt="Imagem ${index + 1}">
+                </div>
+                <button class="btn-custom mt-3" onclick="showNextCard(${index + 1})">CONTINUAR</button>
+            `;
+            dynamicArea.appendChild(newCard);
+        }
+    </script>
+</body>
+</html>

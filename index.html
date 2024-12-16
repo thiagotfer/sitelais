@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Boas-Vindas</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffcccc;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .card {
+            max-width: 400px;
+            border: none;
+            border-radius: 15px;
+            background-color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        input#name-input {
+            height: 50px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            border: 1px solid #b30000;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        input#name-input:focus {
+            border-color: #990000;
+            outline: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-custom {
+            background-color: #b30000;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-custom:hover {
+            background-color: #990000;
+            transform: scale(1.05);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .rocket-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .btn-custom:hover .rocket-icon {
+            transform: translateX(5px);
+        }
+
+        .card {
+    max-width: 400px;
+    border: none;
+    border-radius: 15px;
+    background-color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1s ease-in-out;
+    margin-top: 20px; /* Espaçamento superior */
+    margin-bottom: 20px; /* Espaçamento inferior */}
+    
+    </style>
+</head>
+<body>
+    <!-- Centralização do conteúdo -->
+    <div class="container my-4">
+        <!-- Card 1: Digitar o nome -->
+        <div class="card p-4 mb-4 shadow-sm" id="card-name">
+            <h1 class="card-title text-primary text-center" style="font-family: 'Pacifico', cursive;">Bem-vindo!</h1>
+            <p class="card-text text-center" style="font-family: 'Poppins', sans-serif; font-size: 1.2rem;">
+                Qual é o seu nome?
+            </p>
+            <input type="text" id="name-input" class="form-control mb-3" placeholder="Digite seu nome aqui">
+            <button id="submit-btn" class="btn btn-custom px-4 py-2 shadow" onclick="checkName()">
+                <span>Enviar</span>
+                <span class="rocket-icon">🚀</span>
+            </button>
+            <div id="error-message" class="text-danger mt-3 fw-bold"></div>
+            <div id="success-message" class="text-success mt-3 fw-bold"></div>
+        </div>
+
+        <!-- Área dinâmica para os próximos cards -->
+        <div id="dynamic-area"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let attempts = 0;
+
+        function checkName() {
+            const nameInput = document.getElementById('name-input').value.trim().toLowerCase();
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
+            const dynamicArea = document.getElementById('dynamic-area');
+
+            // Limpar mensagens anteriores
+            errorMessage.textContent = "";
+            successMessage.textContent = "";
+
+            if (nameInput === "lais") {
+                successMessage.textContent = "Ótimo, Lais! Vamos continuar.";
+
+                // Card 2: Botão "Continuar"
+                const cardContinue = document.createElement('div');
+                cardContinue.classList.add('card', 'p-4', 'mb-4', 'shadow-sm');
+                cardContinue.innerHTML = `
+                    <p class="fw-bold">Vamos continuar?</p>
+                    <button class="btn btn-custom" onclick="showConfirmationCard()">Continuar</button>
+                `;
+                dynamicArea.innerHTML = ""; // Limpa o conteúdo anterior
+                dynamicArea.appendChild(cardContinue);
+            } else {
+                attempts++;
+                errorMessage.textContent = attempts < 3
+                    ? "Nome incorreto! Tente novamente."
+                    : "Dica: Seu nome começa com L.";
+            }
+        }
+
+        function showConfirmationCard() {
+            const dynamicArea = document.getElementById('dynamic-area');
+
+            // Card 3: Confirmação "Deseja realmente continuar?"
+            const confirmationCard = document.createElement('div');
+            confirmationCard.classList.add('card', 'p-4', 'mb-4', 'shadow-sm');
+            confirmationCard.innerHTML = `
+                <p class="fw-bold">Deseja realmente continuar?</p>
+                <button class="btn btn-custom" onclick="redirectToNextPage()">Sim</button>
+            `;
+            dynamicArea.innerHTML = ""; // Limpa o conteúdo anterior
+            dynamicArea.appendChild(confirmationCard);
+        }
+
+        function redirectToNextPage() {
+            // Redireciona para a página "tela2.html"
+            window.location.href = "tela2.html";
+        }
+    </script>
+</body>
+</html>
